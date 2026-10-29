@@ -1,0 +1,17 @@
+{
+  "name": "famdash",
+  "version": "1.0.0",
+  "description": "Minimal family week calendar dashboard fed by a published Outlook.com ICS link",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "ICS_URL=file:test/sample.ics node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "node-ical": "^0.20.1"
+  }
+}

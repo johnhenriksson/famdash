@@ -1,0 +1,41 @@
+# famdash
+
+Minimal, always-on family week calendar dashboard (for a tablet/kiosk). Reads a published Outlook.com ICS feed and shows the current week. See `README.md` for user-facing setup.
+
+## Stack
+
+- Node >= 20, plain `http` server in `server.js` (no framework), single dependency: `node-ical`.
+- Frontend is static vanilla HTML/CSS/JS in `public/` (`index.html`, `app.js`, `style.css`), no build step.
+- Deployed with Docker (`Dockerfile`, `docker-compose.yml`), image `node:22-alpine`, runs as `node` user.
+
+## Commands
+
+- `npm install`
+- `npm start` — run server (needs `ICS_URL` env)
+- `npm run dev` — runs against `test/sample.ics` via `ICS_URL=file:test/sample.ics`
+- `docker compose up -d --build` — production run, reads `.env`
+
+## Architecture
+
+- `server.js` fetches the ICS on start and every `REFRESH_MINUTES`, keeps it in an in-memory `cache` (`events`, `fetchedAt`, `error`). On failure the last good data is kept and the error is surfaced.
+- Events are expanded (recurrences etc.) server-side; week/day math uses `"YYYY-MM-DD"` keys in the configured `TZ` (`dayKey`, `addDays`, `weekStartKey`, `isoWeek`).
+- Routes: `GET /api/week` (week data for the UI), `GET /healthz` (last fetch time + error), everything else serves files from `public/`.
+- `ICS_URL` supports `https:`, `webcal:` and `file:` (local path) schemes.
+
+## Config (env)
+
+`ICS_URL`, `TZ` (IANA, default UTC), `WEEK_START` (`monday`|`sunday`), `REFRESH_MINUTES` (default 10), `PORT` (default 3000). See `.env.example`.
+
+## Conventions and gotchas
+
+- The ICS URL is a secret: it must stay server-side and never be sent to the browser or logged. `.env` is gitignored; don't commit it or paste its contents.
+- No auth on the page — intended to be LAN-only or behind an authenticated reverse proxy.
+- Keep it minimal: avoid adding dependencies or a frontend build step without a good reason.
+- Dockerfile copies only `package.json`, `server.js` and `public/`; new runtime files must be added there.
+- Project is not a git repository yet.
+
+## Status / progress log
+
+Keep this section updated as work proceeds (newest first).
+
+- 2026-10-29: Initial scaffold in place (server, static UI, Docker, sample ICS). CLAUDE.md created.

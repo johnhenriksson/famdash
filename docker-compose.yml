@@ -1,0 +1,10 @@
+services:
+  famdash:
+    build: .
+    container_name: famdash
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - TZ=${TZ:-UTC}
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
