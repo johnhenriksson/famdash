@@ -39,12 +39,12 @@ Minimal, always-on family week calendar dashboard (for a tablet/kiosk). Reads a 
 - Commit after each logical change, with a descriptive subject (imperative, <= 72 chars) and a body explaining *why*. Commit messages end with the Co-Authored-By line.
 - Add clear comments in code that explain intent, not just what the line does. Match the existing comment style in `server.js`.
 - Never commit `.env` (gitignored). Check `git status` before committing.
-- Remote: not connected yet (`gh` is not installed; no SSH keys). Plan is an empty private GitHub repo added as `origin` over HTTPS; the user runs the first push.
+- Remote: `origin` = https://github.com/johnhenriksson/famdash.git (HTTPS; `gh` is not installed, no SSH keys). Pushes need the user's credentials, so the user runs `! git push`; don't push without being asked.
 - Update the progress log below with each meaningful change.
 
 ## Status / progress log
 
 Keep this section updated as work proceeds (newest first).
 
-- 2026-10-29: Initialized git on `main`, first commit made; GitHub remote pending.
+- 2026-10-29: Initialized git on `main`, first commit made; `origin` added (first push pending, run by user).
 - 2026-10-29: Initial scaffold in place (server, static UI, Docker, sample ICS). CLAUDE.md created.
