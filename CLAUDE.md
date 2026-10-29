@@ -32,10 +32,19 @@ Minimal, always-on family week calendar dashboard (for a tablet/kiosk). Reads a 
 - No auth on the page — intended to be LAN-only or behind an authenticated reverse proxy.
 - Keep it minimal: avoid adding dependencies or a frontend build step without a good reason.
 - Dockerfile copies only `package.json`, `server.js` and `public/`; new runtime files must be added there.
-- Project is not a git repository yet.
+
+## Git workflow
+
+- Branch: `main`. Commit identity is set repo-locally (not global).
+- Commit after each logical change, with a descriptive subject (imperative, <= 72 chars) and a body explaining *why*. Commit messages end with the Co-Authored-By line.
+- Add clear comments in code that explain intent, not just what the line does. Match the existing comment style in `server.js`.
+- Never commit `.env` (gitignored). Check `git status` before committing.
+- Remote: not connected yet (`gh` is not installed; no SSH keys). Plan is an empty private GitHub repo added as `origin` over HTTPS; the user runs the first push.
+- Update the progress log below with each meaningful change.
 
 ## Status / progress log
 
 Keep this section updated as work proceeds (newest first).
 
+- 2026-10-29: Initialized git on `main`, first commit made; GitHub remote pending.
 - 2026-10-29: Initial scaffold in place (server, static UI, Docker, sample ICS). CLAUDE.md created.
